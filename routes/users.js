@@ -44,12 +44,13 @@ router.get('/user/:uid', (req,res,next) => {
   })
 })
 //update
-router.put('/user/:id',(req,res)=>{
+router.put('/user/:uid',(req,res)=>{
   let emp = req.body;
-  let userDataQ = "INSERT INTO `user` (uid, name, cost, description) VALUES ( '" +req.params.id+"','"+emp.name+"','"+emp.cost+"','"+emp.description+ "' );";
+  let userDataQ = "UPDATE `user` SET `name` = '"+emp.name+"' , `cost` = '"+emp.cost+"', `description` = '"+emp.description+"' WHERE `uid` = '"+req.params.uid+"'";
   connection.query(userDataQ,
     (error,result)=>{
       if(!error) {
+        console.log(result);
         res.send('user data updated!');
       } else {
         res.send('error occured while updating user data!!');
